@@ -35,13 +35,21 @@ public class InvoiceDetail {
     private ProductService productService;
 
     @ManyToOne
+    @JoinColumn(name = "supplier_product_id", referencedColumnName  = "id")
+    private SupplierProductService supplierProductService;
+
+    @ManyToOne
     @JoinColumn(name = "vat_id", referencedColumnName  = "id")
     private Vat vat;
+
+
+
 
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(double pricePerItem, double discount, int quantity, double pricePriorVat, double totalPrice, Invoice invoice, ProductService productService, Vat vat) {
+    public InvoiceDetail(long id, double pricePerItem, double discount, int quantity, double pricePriorVat, double totalPrice, Invoice invoice, ProductService productService, SupplierProductService supplierProductService, Vat vat) {
+        this.id = id;
         this.pricePerItem = pricePerItem;
         this.discount = discount;
         this.quantity = quantity;
@@ -49,6 +57,7 @@ public class InvoiceDetail {
         this.totalPrice = totalPrice;
         this.invoice = invoice;
         this.productService = productService;
+        this.supplierProductService = supplierProductService;
         this.vat = vat;
     }
 
@@ -96,6 +105,10 @@ public class InvoiceDetail {
         return totalPrice;
     }
 
+    public SupplierProductService getSupplierProductService() {
+        return supplierProductService;
+    }
+
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
@@ -124,6 +137,10 @@ public class InvoiceDetail {
         this.vat = vat;
     }
 
+    public void setSupplierProductService(SupplierProductService supplierProductService) {
+        this.supplierProductService = supplierProductService;
+    }
+
     @Override
     public String toString() {
         return "InvoiceDetail{" +
@@ -135,6 +152,7 @@ public class InvoiceDetail {
                 ", totalPrice=" + totalPrice +
                 ", invoice=" + invoice +
                 ", productService=" + productService +
+                ", supplierProductService=" + supplierProductService +
                 ", vat=" + vat +
                 '}';
     }
